@@ -6,20 +6,23 @@ import java.util.Random;
 
 
 public class Randoms implements Iterable<Integer> {
+    private final int min;
+    private final int max;
     protected Random random;
 
     public Randoms(int min, int max) {
-        while (iterator().hasNext()) {
-            int r = random.nextInt((max - min) + 1);
-        }
+        this.min = min;
+        this.max = max;
+        this.random = new Random();
     }
+
 
 
     @Override
     public Iterator<Integer> iterator() {
         return new Iterator<>() {
-            private int pos = 0;
 
+            int nextNumber;
             @Override
             public boolean hasNext() {
                 return true;
@@ -27,9 +30,11 @@ public class Randoms implements Iterable<Integer> {
 
             @Override
             public Integer next() {
-                return iterator().next();
+                int i = max - min + 1;
+                return random.nextInt(Math.abs(i)) + min;
             }
         };
+
     }
 }
 
